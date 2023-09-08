@@ -19,6 +19,21 @@ function generateCustomGrid(gridSize) {
     drawing();
 }
 
+function userSizeInput() {
+    while (true) {
+        newGridSize = prompt("Enter new size (max 100)");
+        if (newGridSize > 100) {
+            alert("Size is to big! Max size is 100");
+            continue;
+        } else if (newGridSize <= 0) {
+            alert("Size is too small! Choose size 1-100");
+        } else {
+            break;
+        }
+    }
+    generateCustomGrid(newGridSize);
+}
+
 function generateDefaultGrid() {
     for (let col = 0; col < 16; col++) {
         const rowDiv = document.createElement("div");
@@ -49,6 +64,19 @@ function drawing() {
     });
 }
 
+function eraseALL() {
+    console.log("test");
+    if (newGridSize) {
+        generateCustomGrid(newGridSize);
+        console.log("test2");
+    } else {
+        generateCustomGrid(16);
+        console.log("test3");
+    }
+}
+
+let newGridSize;
+
 let mouseDown = false;
 document.body.onmousedown = () => mouseDown = true;
 document.body.onmouseup = () => mouseDown = false;
@@ -58,16 +86,7 @@ generateDefaultGrid();
 
 // input for changing the grid size
 const sizeBtn = document.querySelector("#size-btn");
-sizeBtn.addEventListener("click", () => {
-    let newGridSize;
-    while (true) {
-        newGridSize = prompt("Enter new size (max 100)");
-        if (newGridSize > 100) {
-            alert("Size is to big! Max size is 100");
-            continue;
-        } else {
-            break;
-        }
-    }
-    generateCustomGrid(newGridSize);
-})
+sizeBtn.addEventListener("click", userSizeInput);
+
+const clearAllBtn = document.querySelector("#erase-all");
+clearAllBtn.addEventListener("click", eraseALL);
