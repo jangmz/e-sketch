@@ -35,17 +35,26 @@ function generateDefaultGrid() {
     drawing();
 }
 
+function changeColor(e) {
+    if (e.type === "mouseover" && !mouseDown) return;
+    e.target.classList.add("bgColor");
+}
+
 function drawing() {
     // change the background color on hover event
     const gridPixels = document.querySelectorAll(".grid-pixel");
-    gridPixels.forEach(gridPixel => gridPixel.addEventListener("mouseover", (e) => {
-        e.target.classList.add("bgColor");
-    }));
+    gridPixels.forEach(gridPixel => {
+        gridPixel.addEventListener("mouseover", changeColor);
+        gridPixel.addEventListener("mousedown", changeColor);
+    });
 }
+
+let mouseDown = false;
+document.body.onmousedown = () => mouseDown = true;
+document.body.onmouseup = () => mouseDown = false;
 
 const grid = document.querySelector(".grid");
 generateDefaultGrid();
-
 
 // input for changing the grid size
 const sizeBtn = document.querySelector("#size-btn");
